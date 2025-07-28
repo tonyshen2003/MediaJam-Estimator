@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频数据量计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>视频数据量计算器</h1>
+            <p>请选择相应的录制设置，以预计数据速率和录制时间。</p>
+        </div>
+
+        <div class="calculator">
+            <!-- 厂商选择 -->
+            <div class="section">
+                <div class="section-label">厂商</div>
+                <div class="button-grid brand-grid">
+                    <button class="option-btn" data-brand="Apple">Apple</button>
+                    <button class="option-btn" data-brand="Canon">Canon</button>
+                    <button class="option-btn" data-brand="Sony">Sony</button>
+                    <button class="option-btn" data-brand="GoPro">GoPro</button>
+                    <button class="option-btn" data-brand="DJI">DJI</button>
+                    <button class="option-btn" data-brand="通用">通用</button>
+                </div>
+            </div>
+
+            <!-- 设备选择 -->
+            <div class="section">
+                <div class="section-label">设备</div>
+                <div class="button-grid device-grid" id="device-grid">
+                    <div class="placeholder-text">请先选择厂商</div>
+                </div>
+            </div>
+
+        <!-- 文件格式选择 -->
+        <div class="section" id="format-section">
+            <h3 class="section-label">📁 文件格式</h3>
+            <div class="wheel-selector">
+                <div class="wheel-control">
+                    <button class="wheel-btn" onclick="calculator.adjustSelection('format', -1)">◀</button>
+                    <div class="wheel-display" id="format-display">请选择设备</div>
+                    <button class="wheel-btn" onclick="calculator.adjustSelection('format', 1)">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 录制帧速率选择 -->
+        <div class="section" id="framerate-section">
+            <h3 class="section-label">🎬 录制帧速率</h3>
+            <div class="wheel-selector">
+                <div class="wheel-control">
+                    <button class="wheel-btn" onclick="calculator.adjustSelection('framerate', -1)">◀</button>
+                    <div class="wheel-display" id="framerate-display">请选择格式</div>
+                    <button class="wheel-btn" onclick="calculator.adjustSelection('framerate', 1)">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 录制设置选择 -->
+        <div class="section" id="settings-section">
+            <h3 class="section-label">⚙️ 录制设置</h3>
+            <div class="wheel-selector">
+                <div class="wheel-control">
+                    <button class="wheel-btn" onclick="calculator.adjustSelection('settings', -1)">◀</button>
+                    <div class="wheel-display" id="settings-display">请选择帧率</div>
+                    <button class="wheel-btn" onclick="calculator.adjustSelection('settings', 1)">▶</button>
+                </div>
+            </div>
+        </div>
+            </div>
+
+            <!-- 数据速率和录制时间 -->
+            <div class="section bottom-section">
+                <div class="data-rate-section">
+                    <div class="section-label">数据速率</div>
+                    <div class="rate-display">
+                        <div class="rate-label">最大</div>
+                        <div class="rate-value">
+                            <span class="rate-number" id="max-rate">0</span>
+                            <span class="rate-unit">MB/s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-time-section">
+                    <div class="section-label">录制时间</div>
+                    <div class="time-controls">
+                        <div class="storage-select">
+                            <select id="storage-size">
+                                <option value="16">16GB</option>
+                                <option value="32">32GB</option>
+                                <option value="64">64GB</option>
+                                <option value="128">128GB</option>
+                                <option value="256">256GB</option>
+                                <option value="512">512GB</option>
+                                <option value="1024" selected>1TB</option>
+                                <option value="2048">2TB</option>
+                            </select>
+                        </div>
+                        <div class="time-display">
+                            <div class="time-label">最小</div>
+                            <div class="time-value">
+                                <span class="time-number" id="min-time">0</span>
+                                <span class="time-unit">分</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CSV 数据管理 -->
+            <div class="section csv-management" style="margin-top: 30px; border-top: 1px solid #555; padding-top: 20px;">
+                <div class="section-label">数据管理</div>
+                <div class="csv-controls">
+                    <button class="option-btn csv-btn" onclick="downloadCSV()">下载 CSV 数据</button>
+                    <button class="option-btn csv-btn" onclick="showDeviceCount()">查看设备数量</button>
+                </div>
+                <div id="csv-info" class="csv-info" style="margin-top: 10px; color: #888; font-size: 0.9rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="csv-loader.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // CSV 管理功能
+        function downloadCSV() {
+            if (csvLoader) {
+                csvLoader.downloadCSV();
+            } else {
+                alert('CSV 数据未加载完成');
+            }
+        }
+
+        function showDeviceCount() {
+            if (csvLoader) {
+                const devices = csvLoader.getAllDevices();
+                const brands = csvLoader.getAllBrands();
+                document.getElementById('csv-info').innerHTML = 
+                    `当前数据：${devices.length} 个设备，${brands.length} 个品牌<br>` +
+                    `品牌列表：${brands.join('、')}`;
+            } else {
+                alert('CSV 数据未加载完成');
+            }
+        }
+    </script>
+</body>
+</html>
