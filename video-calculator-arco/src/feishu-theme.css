@@ -1,0 +1,326 @@
+/* 飞书设计规范主题文件 */
+
+/* 飞书主色调 */
+:root {
+  /* 主色调 */
+  --feishu-primary: #3370ff;
+  --feishu-primary-hover: #2b65e8;
+  --feishu-primary-active: #1e4fcb;
+  --feishu-primary-light: #e8f3ff;
+  
+  /* 功能色 */
+  --feishu-success: #00b42a;
+  --feishu-success-hover: #009a29;
+  --feishu-success-active: #008817;
+  --feishu-success-light: #e8ffea;
+  
+  --feishu-warning: #ff7d00;
+  --feishu-warning-hover: #e56e00;
+  --feishu-warning-active: #cc5e00;
+  --feishu-warning-light: #fff7e8;
+  
+  --feishu-danger: #f53f3f;
+  --feishu-danger-hover: #cb2634;
+  --feishu-danger-active: #a7171f;
+  --feishu-danger-light: #ffece8;
+  
+  /* 文本颜色 */
+  --feishu-text-1: #1f2329; /* 标题、重点文本 */
+  --feishu-text-2: #4e5969; /* 正文、次要文本 */
+  --feishu-text-3: #86909c; /* 辅助文本 */
+  --feishu-text-4: #c9cdd4; /* 禁用文本 */
+  
+  /* 背景颜色 */
+  --feishu-bg-1: #ffffff; /* 页面背景 */
+  --feishu-bg-2: #f7f8fa; /* 卡片背景 */
+  --feishu-bg-3: #f2f3f5; /* 次要背景 */
+  --feishu-bg-4: #e5e6eb; /* 分割线、边框 */
+  
+  /* 边框颜色 */
+  --feishu-border-1: #e5e6eb; /* 常规边框 */
+  --feishu-border-2: #c9cdd4; /* 深色边框 */
+  
+  /* 圆角 */
+  --feishu-radius-small: 4px;
+  --feishu-radius-medium: 8px;
+  --feishu-radius-large: 12px;
+  
+  /* 飞书布局规范 - 间距系统 */
+  --feishu-spacing-1: 4px;   /* 极小间距 */
+  --feishu-spacing-2: 8px;   /* 特小间距 */
+  --feishu-spacing-3: 12px;  /* 小间距 */
+  --feishu-spacing-4: 16px;  /* 常规间距 */
+  --feishu-spacing-5: 20px;  /* 中间距 */
+  --feishu-spacing-6: 24px;  /* 大间距 */
+  --feishu-spacing-7: 32px;  /* 特大间距 */
+  --feishu-spacing-8: 40px;  /* 极大间距 */
+  --feishu-spacing-9: 48px;  /* 超大间距 */
+  --feishu-spacing-10: 56px; /* 巨大间距 */
+  
+  /* 飞书布局规范 - 栅格系统 */
+  --feishu-grid-columns: 24;  /* 24 栅格系统 */
+  --feishu-grid-gutter-xs: 8px;  /* 极小屏幕栅格间距 */
+  --feishu-grid-gutter-sm: 16px; /* 小屏幕栅格间距 */
+  --feishu-grid-gutter-md: 20px; /* 中屏幕栅格间距 */
+  --feishu-grid-gutter-lg: 24px; /* 大屏幕栅格间距 */
+  --feishu-grid-gutter-xl: 24px; /* 超大屏幕栅格间距 */
+  
+  /* 飞书布局规范 - 断点 */
+  --feishu-breakpoint-xs: 480px;  /* 极小屏幕断点 */
+  --feishu-breakpoint-sm: 720px;  /* 小屏幕断点 */
+  --feishu-breakpoint-md: 960px;  /* 中屏幕断点 */
+  --feishu-breakpoint-lg: 1200px; /* 大屏幕断点 */
+  --feishu-breakpoint-xl: 1600px; /* 超大屏幕断点 */
+  
+  /* 阴影 */
+  --feishu-shadow-1: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --feishu-shadow-2: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --feishu-shadow-3: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* 飞书布局规范 - 容器 */
+.layout-container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--feishu-spacing-4);
+  padding-left: var(--feishu-spacing-4);
+}
+
+/* 飞书布局规范 - 响应式容器 */
+@media (min-width: 480px) {
+  .layout-container {
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 720px) {
+  .layout-container {
+    max-width: 720px;
+    padding-right: var(--feishu-spacing-5);
+    padding-left: var(--feishu-spacing-5);
+  }
+}
+
+@media (min-width: 960px) {
+  .layout-container {
+    max-width: 960px;
+    padding-right: var(--feishu-spacing-6);
+    padding-left: var(--feishu-spacing-6);
+  }
+}
+
+@media (min-width: 1200px) {
+  .layout-container {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .layout-container {
+    max-width: 1600px;
+  }
+}
+
+/* 飞书布局规范 - 栅格系统 */
+.layout-col {
+  box-sizing: border-box;
+}
+
+/* 覆盖 Arco Design 组件样式 */
+.arco-row {
+  margin-right: calc(-1 * var(--feishu-grid-gutter-md)) !important;
+  margin-left: calc(-1 * var(--feishu-grid-gutter-md)) !important;
+}
+
+@media (max-width: 480px) {
+  .arco-row {
+    margin-right: calc(-1 * var(--feishu-grid-gutter-xs)) !important;
+    margin-left: calc(-1 * var(--feishu-grid-gutter-xs)) !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 720px) {
+  .arco-row {
+    margin-right: calc(-1 * var(--feishu-grid-gutter-sm)) !important;
+    margin-left: calc(-1 * var(--feishu-grid-gutter-sm)) !important;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 960px) {
+  .arco-row {
+    margin-right: calc(-1 * var(--feishu-grid-gutter-md)) !important;
+    margin-left: calc(-1 * var(--feishu-grid-gutter-md)) !important;
+  }
+}
+
+@media (min-width: 961px) {
+  .arco-row {
+    margin-right: calc(-1 * var(--feishu-grid-gutter-lg)) !important;
+    margin-left: calc(-1 * var(--feishu-grid-gutter-lg)) !important;
+  }
+}
+
+.arco-col {
+  padding-right: var(--feishu-grid-gutter-md) !important;
+  padding-left: var(--feishu-grid-gutter-md) !important;
+}
+
+@media (max-width: 480px) {
+  .arco-col {
+    padding-right: var(--feishu-grid-gutter-xs) !important;
+    padding-left: var(--feishu-grid-gutter-xs) !important;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 720px) {
+  .arco-col {
+    padding-right: var(--feishu-grid-gutter-sm) !important;
+    padding-left: var(--feishu-grid-gutter-sm) !important;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 960px) {
+  .arco-col {
+    padding-right: var(--feishu-grid-gutter-md) !important;
+    padding-left: var(--feishu-grid-gutter-md) !important;
+  }
+}
+
+@media (min-width: 961px) {
+  .arco-col {
+    padding-right: var(--feishu-grid-gutter-lg) !important;
+    padding-left: var(--feishu-grid-gutter-lg) !important;
+  }
+}
+
+/* 组件样式覆盖 */
+.arco-btn-primary {
+  background-color: var(--feishu-primary) !important;
+  border-color: var(--feishu-primary) !important;
+}
+
+.arco-btn-primary:hover {
+  background-color: var(--feishu-primary-hover) !important;
+  border-color: var(--feishu-primary-hover) !important;
+}
+
+.arco-btn-primary:active {
+  background-color: var(--feishu-primary-active) !important;
+  border-color: var(--feishu-primary-active) !important;
+}
+
+.arco-select-view {
+  border-radius: var(--feishu-radius-small) !important;
+  border-color: var(--feishu-border-1) !important;
+}
+
+.arco-select-view:hover {
+  border-color: var(--feishu-primary) !important;
+}
+
+.arco-select-view-active {
+  border-color: var(--feishu-primary) !important;
+  box-shadow: 0 0 0 2px var(--feishu-primary-light) !important;
+}
+
+.arco-card {
+  border-radius: var(--feishu-radius-medium) !important;
+  box-shadow: var(--feishu-shadow-1) !important;
+  border: none !important;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: var(--feishu-spacing-6) !important;
+}
+
+.arco-card:hover {
+  box-shadow: var(--feishu-shadow-2) !important;
+}
+
+.arco-card-header {
+  border-bottom: 1px solid var(--feishu-border-1) !important;
+  padding: var(--feishu-spacing-4) var(--feishu-spacing-5) !important;
+}
+
+.arco-card-body {
+  padding: var(--feishu-spacing-5) !important;
+}
+
+.arco-alert {
+  border-radius: var(--feishu-radius-small) !important;
+  margin-bottom: var(--feishu-spacing-4) !important;
+}
+
+.arco-alert-info {
+  background-color: var(--feishu-primary-light) !important;
+  border-color: var(--feishu-primary) !important;
+}
+
+.arco-alert-success {
+  background-color: var(--feishu-success-light) !important;
+  border-color: var(--feishu-success) !important;
+}
+
+.arco-alert-warning {
+  background-color: var(--feishu-warning-light) !important;
+  border-color: var(--feishu-warning) !important;
+}
+
+.arco-alert-error {
+  background-color: var(--feishu-danger-light) !important;
+  border-color: var(--feishu-danger) !important;
+}
+
+.arco-divider {
+  border-color: var(--feishu-border-1) !important;
+  margin: var(--feishu-spacing-5) 0 !important;
+}
+
+.arco-typography-title {
+  color: var(--feishu-text-1) !important;
+  margin-bottom: var(--feishu-spacing-3) !important;
+}
+
+.arco-typography-text {
+  color: var(--feishu-text-2) !important;
+}
+
+.arco-typography-secondary {
+  color: var(--feishu-text-3) !important;
+}
+
+.arco-statistic {
+  margin-bottom: var(--feishu-spacing-4) !important;
+}
+
+.arco-statistic-title {
+  color: var(--feishu-text-2) !important;
+  font-size: 14px !important;
+  margin-bottom: var(--feishu-spacing-2) !important;
+}
+
+.arco-statistic-value {
+  color: var(--feishu-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* 飞书布局规范 - 间距工具类 */
+.margin-top-1 { margin-top: var(--feishu-spacing-1) !important; }
+.margin-top-2 { margin-top: var(--feishu-spacing-2) !important; }
+.margin-top-3 { margin-top: var(--feishu-spacing-3) !important; }
+.margin-top-4 { margin-top: var(--feishu-spacing-4) !important; }
+.margin-top-5 { margin-top: var(--feishu-spacing-5) !important; }
+.margin-top-6 { margin-top: var(--feishu-spacing-6) !important; }
+
+.margin-bottom-1 { margin-bottom: var(--feishu-spacing-1) !important; }
+.margin-bottom-2 { margin-bottom: var(--feishu-spacing-2) !important; }
+.margin-bottom-3 { margin-bottom: var(--feishu-spacing-3) !important; }
+.margin-bottom-4 { margin-bottom: var(--feishu-spacing-4) !important; }
+.margin-bottom-5 { margin-bottom: var(--feishu-spacing-5) !important; }
+.margin-bottom-6 { margin-bottom: var(--feishu-spacing-6) !important; }
+
+.padding-1 { padding: var(--feishu-spacing-1) !important; }
+.padding-2 { padding: var(--feishu-spacing-2) !important; }
+.padding-3 { padding: var(--feishu-spacing-3) !important; }
+.padding-4 { padding: var(--feishu-spacing-4) !important; }
+.padding-5 { padding: var(--feishu-spacing-5) !important; }
+.padding-6 { padding: var(--feishu-spacing-6) !important; }
