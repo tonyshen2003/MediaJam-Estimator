@@ -1,0 +1,149 @@
+<!-- index.wxml -->
+<view class="mini-app {{theme === 'dark' ? 'dark' : 'light'}}">
+  <view class="mini-container">
+    <!-- 头部 -->
+    <view class="mini-header">
+      <view class="mini-title">
+        <text class="iconfont icon-video"></text>
+        <text>视频数据量计算器</text>
+      </view>
+      <view class="theme-switch" bindtap="switchTheme">
+        <text class="iconfont {{theme === 'dark' ? 'icon-moon' : 'icon-sun'}}"></text>
+      </view>
+    </view>
+
+    <!-- 内容区域 -->
+    <view class="mini-content">
+      <!-- 设备选择页 -->
+      <view class="mini-tab-content" wx:if="{{activeTab === 'device'}}">
+        <view class="mini-form">
+          <!-- 设备选择 -->
+          <view class="mini-form-item">
+            <view class="mini-form-label">
+              <text class="iconfont icon-video"></text>
+              <text>选择设备</text>
+            </view>
+            <picker bindchange="deviceChange" value="{{selectedDeviceIndex}}" range="{{deviceArray}}">
+              <view class="mini-picker {{selectedDeviceIndex === -1 ? 'placeholder' : ''}}">
+                {{selectedDeviceIndex === -1 ? '请选择录制设备' : deviceArray[selectedDeviceIndex]}}
+              </view>
+            </picker>
+          </view>
+
+          <!-- 格式选择 -->
+          <view class="mini-form-item" wx:if="{{selectedDeviceIndex !== -1}}">
+            <view class="mini-form-label">
+              <text class="iconfont icon-file"></text>
+              <text>录制格式</text>
+            </view>
+            <picker bindchange="formatChange" value="{{selectedFormatIndex}}" range="{{formatArray}}">
+              <view class="mini-picker {{selectedFormatIndex === -1 ? 'placeholder' : ''}}">
+                {{selectedFormatIndex === -1 ? '请选择录制格式' : formatArray[selectedFormatIndex]}}
+              </view>
+            </picker>
+          </view>
+
+          <!-- 帧率选择 -->
+          <view class="mini-form-item" wx:if="{{selectedFormatIndex !== -1}}">
+            <view class="mini-form-label">
+              <text class="iconfont icon-dashboard"></text>
+              <text>帧率</text>
+            </view>
+            <picker bindchange="frameRateChange" value="{{selectedFrameRateIndex}}" range="{{frameRateArray}}">
+              <view class="mini-picker {{selectedFrameRateIndex === -1 ? 'placeholder' : ''}}">
+                {{selectedFrameRateIndex === -1 ? '请选择帧率' : frameRateArray[selectedFrameRateIndex]}}
+              </view>
+            </picker>
+          </view>
+
+          <!-- 设置选择 -->
+          <view class="mini-form-item" wx:if="{{selectedFrameRateIndex !== -1}}">
+            <view class="mini-form-label">
+              <text class="iconfont icon-setting"></text>
+              <text>质量设置</text>
+            </view>
+            <picker bindchange="settingChange" value="{{selectedSettingIndex}}" range="{{settingArray}}">
+              <view class="mini-picker {{selectedSettingIndex === -1 ? 'placeholder' : ''}}">
+                {{selectedSettingIndex === -1 ? '请选择质量设置' : settingArray[selectedSettingIndex]}}
+              </view>
+            </picker>
+          </view>
+
+          <!-- 存储容量选择 -->
+          <view class="mini-form-item">
+            <view class="mini-form-label">
+              <text class="iconfont icon-storage"></text>
+              <text>存储容量</text>
+            </view>
+            <picker bindchange="storageChange" value="{{storageCapacity}}" range="{{storageArray}}">
+              <view class="mini-picker">
+                {{storageArray[storageOptions.findIndex(item => item.value === storageCapacity)]}}
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+
+      <!-- 结果页 -->
+      <view class="mini-tab-content" wx:if="{{activeTab === 'result'}}">
+        <block wx:if="{{selectedSettingIndex === -1}}">
+          <view class="mini-empty-result">
+            <text class="iconfont icon-warning"></text>
+            <text>请先选择录制配置</text>
+            <button class="mini-button" bindtap="switchTab" data-tab="device">去选择</button>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="mini-result">
+            <view class="mini-result-header">
+              <view class="mini-device-info">
+                <text class="iconfont icon-video mini-device-icon"></text>
+                <view class="mini-device-name">
+                  <view class="mini-device-title">{{devices[selectedDeviceIndex].name}}</view>
+                  <view class="mini-device-subtitle">
+                    {{formatArray[selectedFormatIndex]}} / {{frameRateArray[selectedFrameRateIndex]}} / {{settingArray[selectedSettingIndex].split(' (')[0]}}
+                  </view>
+                </view>
+              </view>
+              <view class="mini-storage-info">
+                <text class="iconfont icon-storage mini-storage-icon"></text>
+                <view class="mini-storage-value">{{storageCapacity}}GB</view>
+              </view>
+            </view>
+
+            <view class="mini-result-cards">
+              <view class="mini-result-card">
+                <view class="mini-result-value">{{maxRecordingTime}}</view>
+                <view class="mini-result-label">最大可录制（分钟）</view>
+              </view>
+              
+              <view class="mini-result-card">
+                <view class="mini-result-value">{{dataRate}}</view>
+                <view class="mini-result-label">数据速率（MB/s）</view>
+              </view>
+              
+              <view class="mini-result-card">
+                <view class="mini-result-value">{{fileSize}}</view>
+                <view class="mini-result-label">每分钟大小（MB）</view>
+              </view>
+            </view>
+
+            <button class="mini-button" bindtap="switchTab" data-tab="device">重新选择</button>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 底部导航 -->
+    <view class="mini-footer">
+      <view class="mini-tab-item {{activeTab === 'device' ? 'active' : ''}}" bindtap="switchTab" data-tab="device">
+        <text class="iconfont icon-setting mini-tab-icon"></text>
+        <text>设置</text>
+      </view>
+      <view class="mini-tab-item {{activeTab === 'result' ? 'active' : ''}}" bindtap="switchTab" data-tab="result">
+        <text class="iconfont icon-storage mini-tab-icon"></text>
+        <text>结果</text>
+      </view>
+    </view>
+  </view>
+</view>
